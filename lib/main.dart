@@ -28,11 +28,11 @@ class App extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [getContainer(), getContainer()],
+                  children: [getContainer("t left"), getContainer("t right")],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [getContainer(), getContainer()],
+                  children: [getContainer("b left"), getContainer("b right")],
                 )
               ],
             ),
@@ -41,15 +41,16 @@ class App extends StatelessWidget {
   }
 }
 
-Container getContainer() {
+Container getContainer(var v) {
   return Container(
-    alignment: Alignment.topLeft,
+    alignment: Alignment.center,
     height: 100,
     width: 100,
     margin: EdgeInsets.all(20),
+    child: Text(v),
     decoration: BoxDecoration(
         border: Border.all(width: 4, color: Colors.black),
         color: Colors.yellow,
-        borderRadius: BorderRadius.circular(20)),
+        borderRadius: BorderRadius.circular(50)),
   );
 }
