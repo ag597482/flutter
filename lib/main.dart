@@ -22,17 +22,23 @@ class App extends StatelessWidget {
             ),
           ),
           body: Container(
-            color: Colors.green,
+            color: Colors.grey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [getContainer("t left"), getContainer("t right")],
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    getContainer("t left", Colors.red),
+                    getContainer("t right", Colors.yellow)
+                  ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [getContainer("b left"), getContainer("b right")],
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    getContainer("b left", Colors.blue),
+                    getContainer("b right", Colors.green)
+                  ],
                 )
               ],
             ),
@@ -41,16 +47,15 @@ class App extends StatelessWidget {
   }
 }
 
-Container getContainer(var v) {
+Container getContainer(var v, Color c) {
   return Container(
     alignment: Alignment.center,
     height: 100,
     width: 100,
-    margin: EdgeInsets.all(20),
     child: Text(v),
     decoration: BoxDecoration(
         border: Border.all(width: 4, color: Colors.black),
-        color: Colors.yellow,
+        color: c,
         borderRadius: BorderRadius.circular(50)),
   );
 }
