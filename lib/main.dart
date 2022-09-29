@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+var appTheme = Color.fromARGB(255, 53, 152, 124);
+
 void main() {
   runApp(App());
 }
@@ -10,94 +12,94 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "first",
         home: Scaffold(
-            backgroundColor: Color.fromARGB(255, 59, 255, 141),
+            backgroundColor: Colors.grey,
             appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 59, 203, 255),
-              title: Text("App Bar"),
+              backgroundColor: Colors.black,
+              title: Text("Portfolio"),
               leading: Icon(
-                Icons.home,
-                color: Colors.yellow,
+                Icons.book,
+                color: Colors.grey,
               ),
             ),
             body: Column(
-              children: [getText("hello"), getRichText(), getTextField()],
+              children: [
+                getLogo("A"),
+                getContainer(
+                    getTextField(
+                        Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                        "Aman Gupta"),
+                    20.0),
+                getContainer(
+                    getTextField(
+                        Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                        ),
+                        "Password"),
+                    20.0),
+                getContainer(
+                    getTextField(
+                        Icon(
+                          Icons.link,
+                          color: Colors.white,
+                        ),
+                        "Github"),
+                    20.0),
+                getContainer(getText("Update"), 0.0)
+              ],
             )));
   }
 }
 
-Container getContainer(var v, Color c) {
+Center getLogo(String l) {
+  return Center(
+    child: Container(
+        margin: EdgeInsets.only(top: 40, bottom: 10),
+        alignment: Alignment.center,
+        width: 100,
+        height: 100,
+        child: Text(l,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 80,
+              fontWeight: FontWeight.w500,
+            )),
+        decoration: BoxDecoration(
+            border: Border.all(width: 4, color: Colors.white),
+            color: appTheme,
+            borderRadius: BorderRadius.circular(50))),
+  );
+}
+
+Container getContainer(Widget widget, double leftPadding) {
   return Container(
+    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
     alignment: Alignment.center,
-    height: 100,
-    width: 100,
-    child: Text(v),
-    decoration: BoxDecoration(
-        border: Border.all(width: 4, color: Colors.black),
-        color: c,
-        borderRadius: BorderRadius.circular(50)),
+    height: 50,
+    child: Padding(
+      padding: EdgeInsets.only(left: leftPadding),
+      child: widget,
+    ),
+    decoration:
+        BoxDecoration(color: appTheme, borderRadius: BorderRadius.circular(20)),
+  );
+}
+
+TextField getTextField(Icon i, String text) {
+  return TextField(
+    decoration:
+        InputDecoration(border: InputBorder.none, hintText: text, icon: i),
   );
 }
 
 Text getText(String s) {
-  return Text("Hello Coder's",
+  return Text(s,
       style: TextStyle(
-          color: Colors.pink,
-          fontSize: 30,
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.w500,
-          backgroundColor: Colors.amberAccent,
-          letterSpacing: 4.0,
-          wordSpacing: 5.0,
-          shadows: [
-            Shadow(color: Colors.black, offset: Offset(3.0, 3.0)),
-            Shadow(color: Colors.blue, offset: Offset(4.0, 4.0))
-          ]));
-}
-
-RichText getRichText() {
-  return RichText(
-    text: TextSpan(
-        text: "hello",
-        style: TextStyle(
-            color: Colors.pink,
-            fontSize: 30,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.w500,
-            backgroundColor: Colors.amberAccent,
-            letterSpacing: 4.0,
-            wordSpacing: 5.0,
-            shadows: [
-              Shadow(color: Colors.black, offset: Offset(3.0, 3.0)),
-              Shadow(color: Colors.blue, offset: Offset(4.0, 4.0))
-            ]),
-        children: [
-          TextSpan(
-              text: "aman",
-              style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 30,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w500,
-                  backgroundColor: Colors.amberAccent,
-                  letterSpacing: 4.0,
-                  wordSpacing: 5.0,
-                  shadows: [
-                    Shadow(color: Colors.black, offset: Offset(3.0, 3.0)),
-                    Shadow(color: Colors.blue, offset: Offset(4.0, 4.0))
-                  ]))
-        ]),
-  );
-}
-
-TextField getTextField() {
-  return TextField(
-    //cursorWidth: 2,
-    decoration: InputDecoration(
-        hoverColor: Colors.black,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        labelText: "Name",
-        hintText: "Enter you name"),
-  );
+          fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700));
 }
