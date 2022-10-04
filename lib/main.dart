@@ -22,42 +22,44 @@ class App extends StatelessWidget {
           backgroundColor: Colors.grey,
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: Text("Image"),
+            title: Text("Card widgit"),
             leading: Icon(
               Icons.book,
               color: Colors.grey,
             ),
           ),
           body: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(20),
-                  alignment: Alignment.center,
-                  height: 100,
-                  width: 100,
-                  child: Image.asset(local_image),
-                ),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  alignment: Alignment.center,
-                  height: 100,
-                  width: 200,
-                  child: Image.network(fb_image),
-                ),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  alignment: Alignment.center,
-                  height: 100,
-                  width: 100,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: local_image,
-                    image: fb_image,
+              child: Container(
+            height: 200,
+            width: 300,
+            child: Card(
+              elevation: 10,
+              color: Colors.yellow,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.person,
+                    color: Colors.blue,
+                    size: 40,
                   ),
+                  title: Text(
+                    "Aman gupta",
+                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  ),
+                  subtitle: Text("Coder"),
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(onPressed: () {}, child: Icon(Icons.call)),
+                    ElevatedButton(onPressed: () {}, child: Text("Contact"))
+                  ],
                 )
-              ],
+              ]),
             ),
-          ),
+          )),
         ));
   }
 }
