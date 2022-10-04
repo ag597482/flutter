@@ -51,7 +51,8 @@ class App extends StatelessWidget {
                         ),
                         "Github"),
                     20.0),
-                getContainer(getText("Update"), 0.0)
+                getTextButton("Button"),
+                getFAB(Icon(Icons.save))
               ],
             )));
   }
@@ -102,4 +103,30 @@ Text getText(String s) {
   return Text(s,
       style: TextStyle(
           fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700));
+}
+
+Container getTextButton(String s) {
+  return Container(
+    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: appTheme,
+        padding: const EdgeInsets.all(16.0),
+        textStyle: const TextStyle(fontSize: 20),
+      ),
+      onPressed: () {},
+      child: Text(s),
+    ),
+  );
+}
+
+Container getFAB(Widget w) {
+  return Container(
+    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
+    child: FloatingActionButton(
+      onPressed: () {},
+      backgroundColor: appTheme,
+      child: w,
+    ),
+  );
 }
