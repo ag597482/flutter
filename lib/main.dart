@@ -18,48 +18,102 @@ class App extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "first",
-        home: Scaffold(
-          backgroundColor: Colors.grey,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Text("Card widgit"),
-            leading: Icon(
-              Icons.book,
-              color: Colors.grey,
-            ),
-          ),
-          body: Center(
-              child: Container(
-            height: 200,
-            width: 300,
-            child: Card(
-              elevation: 10,
-              color: Colors.yellow,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(children: [
-                ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                  title: Text(
-                    "Aman gupta",
-                    style: TextStyle(color: Colors.black, fontSize: 25),
-                  ),
-                  subtitle: Text("Coder"),
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            backgroundColor: Colors.grey,
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              title: Text("Card widgit"),
+              bottom: TabBar(tabs: [
+                Tab(
+                  icon: Icon(Icons.home),
+                  text: "Home",
                 ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(onPressed: () {}, child: Icon(Icons.call)),
-                    ElevatedButton(onPressed: () {}, child: Text("Contact"))
-                  ],
+                Tab(
+                  icon: Icon(Icons.settings),
+                  text: "Settings",
+                ),
+                Tab(
+                  icon: Icon(Icons.local_grocery_store),
+                  text: "Store",
                 )
               ]),
             ),
-          )),
+            drawer: ListView(
+              padding: EdgeInsets.all(8.0),
+              children: [
+                UserAccountsDrawerHeader(
+                    accountName: Text("Aman Gupta"),
+                    accountEmail: Text("aman.gupta@gmail.com"),
+                    currentAccountPicture: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        image: DecorationImage(
+                            image: AssetImage(local_image), fit: BoxFit.fill),
+                      ),
+                    )),
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Home"),
+                  onTap: () {
+                    HomePage();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text("Settings"),
+                  onTap: () {
+                    HomePage();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.local_grocery_store),
+                  title: Text("Store"),
+                  onTap: () {
+                    HomePage();
+                  },
+                )
+              ],
+            ),
+            body:
+                TabBarView(children: [HomePage(), SettingPage(), StorePage()]),
+          ),
         ));
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Text("Welcome Home"),
+      ),
+    );
+  }
+}
+
+class SettingPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Text("Setting Page"),
+      ),
+    );
+  }
+}
+
+class StorePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Text("Store Page"),
+      ),
+    );
   }
 }
