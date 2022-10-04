@@ -18,115 +18,49 @@ class App extends StatelessWidget {
             backgroundColor: Colors.grey,
             appBar: AppBar(
               backgroundColor: Colors.black,
-              title: Text("Portfolio"),
+              title: Text("Stack"),
               leading: Icon(
                 Icons.book,
                 color: Colors.grey,
               ),
             ),
-            body: Column(
-              children: [
-                getLogo("A"),
-                getContainer(
-                    getTextField(
-                        Icon(
-                          Icons.person,
-                          color: Colors.white,
+            body: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                fit: StackFit.passthrough,
+                clipBehavior: Clip.hardEdge,
+                children: [
+                  getContainer(Colors.yellow, 200, 200, Container()),
+                  getContainer(
+                      Colors.orange,
+                      300,
+                      100,
+                      Center(
+                        child: Text(
+                          "hello !!!",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w700),
                         ),
-                        "Aman Gupta"),
-                    20.0),
-                getContainer(
-                    getTextField(
-                        Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                        ),
-                        "Password"),
-                    20.0),
-                getContainer(
-                    getTextField(
-                        Icon(
-                          Icons.link,
-                          color: Colors.white,
-                        ),
-                        "Github"),
-                    20.0),
-                getTextButton("Button"),
-                getFAB(Icon(Icons.save))
-              ],
+                      )),
+                  Positioned(
+                      top: 10,
+                      left: 50,
+                      child: getContainer(Colors.pink, 20, 20, Text("hi"))),
+                  Positioned(
+                      top: 10,
+                      right: 50,
+                      child: getContainer(Colors.pink, 20, 20, Text("hi")))
+                ],
+              ),
             )));
   }
 }
 
-Center getLogo(String l) {
-  return Center(
-    child: Container(
-        margin: EdgeInsets.only(top: 40, bottom: 10),
-        alignment: Alignment.center,
-        width: 100,
-        height: 100,
-        child: Text(l,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 80,
-              fontWeight: FontWeight.w500,
-            )),
-        decoration: BoxDecoration(
-            border: Border.all(width: 4, color: Colors.white),
-            color: appTheme,
-            borderRadius: BorderRadius.circular(50))),
-  );
-}
-
-Container getContainer(Widget widget, double leftPadding) {
+Container getContainer(Color color, double h, double w, Widget widget) {
   return Container(
-    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
-    alignment: Alignment.center,
-    height: 50,
-    child: Padding(
-      padding: EdgeInsets.only(left: leftPadding),
-      child: widget,
-    ),
-    decoration:
-        BoxDecoration(color: appTheme, borderRadius: BorderRadius.circular(20)),
-  );
-}
-
-TextField getTextField(Icon i, String text) {
-  return TextField(
-    decoration:
-        InputDecoration(border: InputBorder.none, hintText: text, icon: i),
-  );
-}
-
-Text getText(String s) {
-  return Text(s,
-      style: TextStyle(
-          fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700));
-}
-
-Container getTextButton(String s) {
-  return Container(
-    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
-    child: TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: appTheme,
-        padding: const EdgeInsets.all(16.0),
-        textStyle: const TextStyle(fontSize: 20),
-      ),
-      onPressed: () {},
-      child: Text(s),
-    ),
-  );
-}
-
-Container getFAB(Widget w) {
-  return Container(
-    margin: EdgeInsets.only(left: 30, top: 30, right: 30),
-    child: FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: appTheme,
-      child: w,
-    ),
+    height: h,
+    width: w,
+    color: color,
+    child: widget,
   );
 }
