@@ -1,119 +1,151 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-var appTheme = Color.fromARGB(255, 53, 152, 124);
-
-String local_image = "assets/refund.jpeg";
-String fb_image =
-    "https://scontent-sin6-4.xx.fbcdn.net/v/t39.30808-6/269587835_4730930460361411_7291457782084260876_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=e3f864&_nc_ohc=B94C0fm8V0gAX9V9kyV&_nc_ht=scontent-sin6-4.xx&oh=00_AT91s_s1-kePyTpzUQNP9xXxEP4t_x-JMEk4fcVu5z0_vA&oe=6341A2E2";
-
 void main() {
-  runApp(App());
+  runApp(MyApp());
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "first",
-        home: DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            backgroundColor: Colors.grey,
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              title: Text("Card widgit"),
-              bottom: TabBar(tabs: [
-                Tab(
-                  icon: Icon(Icons.home),
-                  text: "Home",
-                ),
-                Tab(
-                  icon: Icon(Icons.settings),
-                  text: "Settings",
-                ),
-                Tab(
-                  icon: Icon(Icons.local_grocery_store),
-                  text: "Store",
-                )
-              ]),
-            ),
-            drawer: ListView(
-              padding: EdgeInsets.all(8.0),
-              children: [
-                UserAccountsDrawerHeader(
-                    accountName: Text("Aman Gupta"),
-                    accountEmail: Text("aman.gupta@gmail.com"),
-                    currentAccountPicture: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        image: DecorationImage(
-                            image: AssetImage(local_image), fit: BoxFit.fill),
-                      ),
-                    )),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text("Home"),
-                  onTap: () {
-                    HomePage();
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text("Settings"),
-                  onTap: () {
-                    HomePage();
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.local_grocery_store),
-                  title: Text("Store"),
-                  onTap: () {
-                    HomePage();
-                  },
-                )
-              ],
-            ),
-            body:
-                TabBarView(children: [HomePage(), SettingPage(), StorePage()]),
+    return MaterialApp(debugShowCheckedModeBanner: false, home: AlertWidgit());
+  }
+}
+
+class AlertWidgit extends StatelessWidget {
+  TextEditingController _textEditingController = new TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            child: Text("Basic Alert Dialog"),
+            onPressed: () {
+              alertDialogWidgit(context);
+            },
           ),
-        ));
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text("Welcome Home"),
+          ElevatedButton(
+            child: Text("Text Field Alert Dialog"),
+            onPressed: () {
+              textFieldAlertDialogWidgit(context, _textEditingController);
+            },
+          ),
+          ElevatedButton(
+            child: Text("Confirmation Alert Dialog"),
+            onPressed: () async {
+              final acitons? actionTaken =
+                  await confirmationAlertDialogWidgit(context);
+              log("action taken  is  $actionTaken ");
+              print("User selected $actionTaken");
+            },
+          ),
+          ElevatedButton(
+            child: Text("Select Opton Alert Dialog"),
+            onPressed: () async {
+              final lang? actionTaken = await selectOptionDialogWidgit(context);
+              log("action taken  is  $actionTaken ");
+              print("User selected $actionTaken");
+            },
+          )
+        ]),
       ),
     );
   }
 }
 
-class SettingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text("Setting Page"),
-      ),
-    );
-  }
+alertDialogWidgit(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Basics"),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("ok"))
+          ],
+        );
+      });
 }
 
-class StorePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text("Store Page"),
-      ),
-    );
-  }
+textFieldAlertDialogWidgit(
+    BuildContext context, TextEditingController textEditingController) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Basics"),
+          content: TextField(
+            decoration: InputDecoration(hintText: "Enter what you want"),
+            controller: textEditingController,
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  log(textEditingController.text);
+                  textEditingController.text = "";
+                  Navigator.of(context).pop();
+                },
+                child: Text("ok"))
+          ],
+        );
+      });
+}
+
+enum acitons { accept, reject }
+
+Future<acitons?> confirmationAlertDialogWidgit(BuildContext context) async {
+  return showDialog<acitons>(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confimation Action !!"),
+          content: Text("Choose you action"),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(acitons.accept);
+                },
+                child: Text("Accept")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(acitons.reject);
+                },
+                child: Text("Reject"))
+          ],
+        );
+      });
+}
+
+enum lang { c, java, python, react }
+
+Future<lang?> selectOptionDialogWidgit(BuildContext context) async {
+  return showDialog<lang>(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text("Choose any one"),
+          children: [
+            getSimpleDialog(context, "C", lang.c),
+            getSimpleDialog(context, "JAVA", lang.java),
+            getSimpleDialog(context, "PYTHON", lang.python),
+            getSimpleDialog(context, "REACT", lang.react)
+          ],
+        );
+      });
+}
+
+SimpleDialogOption getSimpleDialog(BuildContext context, String text, lang l) {
+  return SimpleDialogOption(
+    child: Text(text),
+    onPressed: () {
+      Navigator.pop(context, l);
+    },
+  );
 }
